@@ -60,7 +60,9 @@ app.post('/:bucket/:id', (req, res) => {
     });
 
     let localstream = new BufferStreamReader(JSON.stringify(body));
-    let wfstream = hdfs.createWriteStream(`${configs.bucketBasePath}/${bucket}/${id}.${configs.bucketFileTypes}`);
+
+    let writePath = `${configs.bucketBasePath}/${bucket}/${id}.${configs.bucketFileTypes}`;
+    let wfstream = hdfs.createWriteStream(writePath);
 
     localstream.pipe(wfstream);
 
@@ -75,7 +77,7 @@ app.post('/:bucket/:id', (req, res) => {
             return;
         }
         
-        res.json('write successful');
+        res.json(`File written to path: ${writePath}`);
     });
 });
 
