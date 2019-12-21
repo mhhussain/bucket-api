@@ -8,8 +8,8 @@ let app = e();
 app.use(e.json());
 
 // GET file from bucket
-app.get('/:bucket/:id', (req, res) => {
-    let { bucket, id } = req.params;
+app.get('/:bucket/:filename', (req, res) => {
+    let { bucket, filename } = req.params;
 
     let hdfs = webhdfs.createClient({
         user: configs.hdfs.user,
@@ -18,7 +18,7 @@ app.get('/:bucket/:id', (req, res) => {
         path: configs.hdfs.path
     });
 
-    let rfstream = hdfs.createReadStream(`${configs.bucketBasePath}/${bucket}/${id}.${configs.bucketFileTypes}`);
+    let rfstream = hdfs.createReadStream(`${configs.bucketBasePath}/${bucket}/${filename}`);
 
     let error = false;
     // read stream errors out
