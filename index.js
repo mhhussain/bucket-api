@@ -1,10 +1,11 @@
 let e = require('express');
+let bodyparser = require('body-parser');
 
-let { createFile } = require('./src/hdfsAdapter');
+let { createFile, retrieveFile } = require('./src/fsAdapter');
 let configs = require('./configs');
 
 let app = e();
-app.use(e.json());
+app.use(bodyparser.text());
 
 // GET file from bucket
 app.get('/:bucket/:filename', (req, res) => {
@@ -12,10 +13,10 @@ app.get('/:bucket/:filename', (req, res) => {
 
     retrieveFile(bucket, filename)
         .then((data) => {
-            res.json(data);
+            res.status(200).send(data);
         })
         .catch((e) => {
-            res.json(e);
+            res.status(500).send(e.toString());
         });
 });
 
@@ -26,10 +27,10 @@ app.post('/:bucket/:filename', (req, res) => {
 
     createFile(bucket, filename, body)
         .then((data) => {
-            res.json(data);
+            res.status(200).send(data);
         })
         .catch((e) => {
-            res.json(e);
+            res.status(500).send(e.toString());
         });
 });
 

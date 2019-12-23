@@ -44,7 +44,8 @@ let retrieveFile = (bucket, id) => {
     });
 
     return new Promise((resolve, reject) => {
-        let rfstream = hdfs.createReadStream(`${configs.bucketBasePath}/${bucket}/${id}`);
+        let readPath = `${configs.bucketBasePath}/${bucket}/${id}`;
+        let rfstream = hdfs.createReadStream(readPath);
 
         let error = false;
         // read stream errors out

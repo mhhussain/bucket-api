@@ -6,7 +6,7 @@ let configs = {
         port: 50070,
         path: '/webhdfs/v1'
     },
-    bucketBasePath: '/tmp/buckets'
+    bucketBasePath: './temp/buckets'
 }
 
 module.exports = configs;

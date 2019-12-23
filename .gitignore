@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Application folder
+data-files/
+temp/

@@ -1,15 +1,31 @@
+let fs = require('fs');
 
 let configs = require('../configs');
 
-let createFile = (bucket, id, data) => {
+let retrieveFile = (bucket, id) => {
     return new Promise((resolve, reject) => {
-        reject('Not implemented');
+        let readPath = `${configs.bucketBasePath}/${bucket}/${id}`;
+        fs.readFile(readPath, (e, d) => {
+            if (!e) {
+                resolve(d.toString());
+            } else {
+                reject (e)
+            }
+        });
     });
 };
 
-let retrieveFile = (bucket, id) => {
+let createFile = (bucket, id, data) => {
     return new Promise((resolve, reject) => {
-        reject('Not implemented');
+        let writePath = `${configs.bucketBasePath}/${bucket}/${id}`;
+        let rawData = data.toString();
+        fs.writeFile(writePath, rawData, (e) => {
+            if (!e) {
+                resolve(`File written to path: ${writePath}`);
+            } else {
+                reject(e);
+            }
+        });
     });
 };
 
