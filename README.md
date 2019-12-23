@@ -16,6 +16,8 @@ This example uses HDFS to store the data, but you could also easily use a databa
 
 ## Requirements
 
+### HDFS
+
 1. Access HDFS cluster with authentication disabled
 2. Host and port for HDFS cluster
 3. A base "buckets" folder created somewhere in the filesystem
@@ -23,19 +25,26 @@ This example uses HDFS to store the data, but you could also easily use a databa
 5. Create a new folder within the "buckets" folder (call it whatever you want, this will be your first bucket)
 6. (optional) Create any additional buckets you want
 
+### FS
+
+1. Create a folder in local filesystem called "buckets"
+2. Update `bucketBasePath` in `config.js` to path of "buckets" folder above
+3. Create a new folder within the "buckets" folder (call it whatever you want, this will be your first bucket)
+4. (optional) Create any additional buckets you want
+
 ## Functionality
 
 Run the application:
 
 `npm start`
 
-Server should be running on port 110 (default).
+Server should be running on port 110 (default). Create a test directory called `./data-files` and add a new file called `first-file.txt`
 
 To create a file:
 
-`curl -d '{"abcde":"efghi"}' -H 'Content-type: application/json' -X POST http://localhost:110/test-bucket/first-file`
+`curl -X POST -H 'Content-type: text/plain' -d @./data-files/first-file.txt http://localhost:110/test-bucket/first-file`
 
-Posting to `http://localhost:110/test-bucket/first-file` will create a new file in the "test-bucket" folder called "first-file" and the contents will be `{"abcde":"efghi"}`.
+Posting to `http://localhost:110/test-bucket/first-file` will create a new file in the "test-bucket" folder called "first-file" and the contents will be the contents of `first-file.txt`.
 
 
 To retrieve a file:
@@ -43,4 +52,3 @@ To retrieve a file:
 `curl -X GET http://localhost:110/test-bucket/first-file`
 
 A GET request to the same url `http://localhost:110/test-bucket/first-file` will then retrieve that file.
-
