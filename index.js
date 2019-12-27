@@ -7,6 +7,10 @@ let configs = require('./configs');
 let app = e();
 app.use(bodyparser.text());
 
+app.get('/ping', (req, res) => {
+    res.status(200).send(JSON.stringify('pong'));
+});
+
 // GET file from bucket
 app.get('/:bucket/:filename', (req, res) => {
     let { bucket, filename } = req.params;
