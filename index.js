@@ -5,7 +5,7 @@ let { createFile, retrieveFile } = require('./src/fsAdapter');
 let configs = require('./configs');
 
 let app = e();
-app.use(bodyparser.text());
+app.use(bodyparser.text({limit: configs.fileSizeLimit, extended: true}));
 
 app.get('/ping', (req, res) => {
     res.status(200).send(JSON.stringify('pong'));

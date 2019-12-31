@@ -8,7 +8,8 @@ let configs = {
         port: 50070,
         path: '/webhdfs/v1'
     },
-    bucketBasePath: _.defaultTo(process.env.BASE_BUCKET_PATH, './temp/buckets')
+    bucketBasePath: _.defaultTo(process.env.BASE_BUCKET_PATH, './temp/buckets'),
+    fileSizeLimit: '10mb'
 };
 
 module.exports = configs;
